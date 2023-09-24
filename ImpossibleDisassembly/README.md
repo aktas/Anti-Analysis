@@ -1,6 +1,6 @@
 ### [](#header-3)Impossible Disassembly
 
-If you want to get an idea of how this technique works, you can review [this article](assets/RemoteWhiz.apk).
+If you want to get an idea of how this technique works, you can review [this article](https://aktas.github.io/TR-Anti-Analysis-Techniques).
 
 ```
    _____          __  .__  ________  .__                              
