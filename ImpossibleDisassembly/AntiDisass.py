@@ -1,21 +1,7 @@
 import os
-import sys
 from colorama import Fore
-
-
-help_info = """
-Usage: antidisass.py [OPTIONS] [VALUE]
-  -r                Default. Remove all anti disass methods
-  -s                Shows addresses only
-
-  Exp:  python3 antidisass.py malicious.exe
-"""
-
-if len(sys.argv) > 1:
-    pass
-else:
-    print(help_info)
-    exit()
+import platform
+import argparse
 
 banner = """
    _____          __  .__  ________  .__                              
@@ -31,16 +17,29 @@ banner = """
 
 print(f"{Fore.RED}{banner}{Fore.RESET}")
 
+
+ap = argparse.ArgumentParser(description="note: the script only works on Linux system and 32-bit programs.")
+ap.add_argument('-s', '--show', action='store_true', required=False, help='only show addresses')
+ap.add_argument('-f', '--file', required=True, help='file path')
+args = vars(ap.parse_args())
+
+fileName = args["file"]
+system = platform.system()
+checkBit = os.popen(f"file {fileName}").read()
+if ("PE32+" in checkBit) or (system == "Windows"):
+    print("The script only works on Linux system and 32-bit programs.")
+    exit()
+
 instructions = {'jl', 'jg', 'je', 'jz', 'jne', 'jnb', 'jle', 'jge', 'jb', 'ja', 'jbe', 'jae', 'jnz'}
 
-fileName = str(sys.argv[1])
-
+control = 1 if args["show"] == True else 0
+print(f"{Fore.GREEN}[!]{Fore.RESET} Addresses will just be displayed instead of being changed.") if control == 1 else None
 
 addressDic = {}
 
 os.system(f"xxd -p -c 0 {fileName} > {fileName}.temp") # opcode degerleri degistirilmek uzere kaydediliyor
 
-for x,instruction in enumerate(instructions):
+for x,instruction in enumerate(instructions): # jmp kontrol ediliyor
     if x == 0:
         os.system(f"objdump -d {fileName} | grep -i -A 3 '{instruction}' | grep -i -B 1 'jmp' | grep -i -A 1 '{instruction}' > dump.txt")
     else:
@@ -77,6 +76,11 @@ for x,instruction in enumerate(instructions):
                     diff = (cArr[0] - cArr[-1]) # kac byte atlamis?
 
                     address = str(hex(cArr[-1])).strip("0x")
+
+                    if control == 1:
+                        cArr.clear()
+                        print(f"{Fore.GREEN}[*]{Fore.RESET} Address : {Fore.GREEN}{address}{Fore.RESET}")
+                        continue
                     os.system(f"objdump -d {fileName} | grep -i -A 3 '{address}' > dump2.txt")
                     
                     
@@ -98,7 +102,7 @@ for x,instruction in enumerate(instructions):
                                 print(f"{Fore.GREEN}[*]{Fore.RESET} Opcode patching process is being performed... Address : {Fore.GREEN}{address}{Fore.RESET}")
                                 lines = lines.replace(opcode, (writeOn + opcode[begin:]))
                             if lines.count(''.join(arr2)) > 1:
-                                print(f"{Fore.GREEN}[!]{Fore.RESET} Adres icerigine birden fazla yerde karsilasildi. Lutfen manuel olarak degistirin. Adres : {Fore.GREEN}{address}{Fore.RESET}")
+                                print(f"{Fore.GREEN}[!]{Fore.RESET} Address content was encountered in more than one place. Please change manually. Address : {Fore.GREEN}{address}{Fore.RESET}")
                             
 
                         with open(f"{fileName}.temp", "w") as file4:
@@ -114,7 +118,7 @@ for x,instruction in enumerate(instructions):
 
 
 
-for x,instruction in enumerate(instructions):
+for x,instruction in enumerate(instructions): # call kontrol ediliyor
     os.system(f"objdump -d cleaned.{fileName} | grep -i -A 3 '{instruction}' | grep -i -B 1 'call' | grep -i -A 1 '{instruction}' > dump.txt")
     
     with open('dump.txt', 'r') as file:
@@ -151,6 +155,12 @@ for x,instruction in enumerate(instructions):
                     diff = (cArr[0] - cArr[-1]) # kac byte atlamis?
 
                     address = str(hex(cArr[-1])).strip("0x")
+
+                    if control == 1:
+                        cArr.clear()
+                        print(f"{Fore.GREEN}[*]{Fore.RESET} Address : {Fore.GREEN}{address}{Fore.RESET}")
+                        continue
+
                     os.system(f"objdump -d {fileName} | grep -i -A 3 '{address}' > dump2.txt")
                     
                     
@@ -172,7 +182,7 @@ for x,instruction in enumerate(instructions):
                                 print(f"{Fore.GREEN}[*]{Fore.RESET} Opcode patching process is being performed... Address : {Fore.GREEN}{address}{Fore.RESET}")
                                 lines = lines.replace(opcode, (writeOn + opcode[begin:]))
                             if lines.count(''.join(arr2)) > 1:
-                                print(f"{Fore.GREEN}[!]{Fore.RESET} Adres icerigine birden fazla yerde karsilasildi. Lutfen manuel olarak degistirin. Adres : {Fore.GREEN}{address}{Fore.RESET}")
+                                print(f"{Fore.GREEN}[!]{Fore.RESET} Address content was encountered in more than one place. Please change manually. Adres : {Fore.GREEN}{address}{Fore.RESET}")
                             
 
                         with open(f"{fileName}.temp", "w") as file4:
