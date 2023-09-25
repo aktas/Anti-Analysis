@@ -3,20 +3,25 @@
 If you want to get an idea of how this technique works, you can review [this article](https://aktas.github.io/TR-Anti-Analysis-Techniques).
 
 ```
-   _____          __  .__  ________  .__                              
-  /  _  \   _____/  |_|__| \______ \ |__| ___________    ______ ______
- /  /_\  \ /    \   __\  |  |    |  \|  |/  ___/\__  \  /  ___//  ___/
-/    |    \   |  \  | |  |  |    `   \  |\___ \  / __ \_\___ \ \___ \ 
-\____|__  /___|  /__| |__| /_______  /__/____  >(____  /____  >____  >
-        \/     \/                  \/        \/      \/     \/     \/ 
+   _____          __  .__  ________  .__                                                                           
+  /  _  \   _____/  |_|__| \______ \ |__| ___________    ______ ______                                             
+ /  /_\  \ /    \   __\  |  |    |  \|  |/  ___/\__  \  /  ___//  ___/                                             
+/    |    \   |  \  | |  |  |    `   \  |\___ \  / __ \_\___ \ \___ \                                              
+\____|__  /___|  /__| |__| /_______  /__/____  >(____  /____  >____  >                                             
+        \/     \/                  \/        \/      \/     \/     \/                                              
+                                                                                                                   
+                            by aktas                                                                               
+            https://www.linkedin.com/in/alperaktasm/                                                               
+                                                                                                                   
+usage: AntiDisass.py [-h] [-s] -f FILE
 
-                            by aktas
-            https://www.linkedin.com/in/alperaktasm/
+note: the script only works on Linux system and 32-bit programs.
 
+options:
+  -h, --help            show this help message and exit
+  -s, --show            only show addresses
+  -f FILE, --file FILE  file path
 
-Usage: antidisass.py [VALUE]
-
-  Exp:  python3 antidisass.py malicious.exe
 ```
 
 > The script only works on Linux system.
