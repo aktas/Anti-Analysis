@@ -68,15 +68,15 @@ for x,instruction in enumerate(instructions): # jmp kontrol ediliyor
                 if str(hex(cArr[0]))[2:4] == str(addressC[:2]): # esit ise obfuscated edilmemis
                     cArr.clear()
                     continue
-
+                
                 cArr.append(val)
 
                 if cArr[0] > cArr[-1]: # Impossible Disassembly Teknigi Kullanilmis
                     #print(arr[1:-2]) # opcode
                     diff = (cArr[0] - cArr[-1]) # kac byte atlamis?
-
+                    
                     address = str(hex(cArr[-1])).strip("0x")
-
+                    
                     if control == 1:
                         cArr.clear()
                         print(f"{Fore.GREEN}[*]{Fore.RESET} Address : {Fore.GREEN}{address}{Fore.RESET}")
@@ -84,11 +84,17 @@ for x,instruction in enumerate(instructions): # jmp kontrol ediliyor
                     os.system(f"objdump -d {fileName} | grep -i -A 3 '{address}' > dump2.txt")
                     
                     
+                    
                     with open('dump2.txt', 'r') as file2: # opcode alinarak degistiriliyor
                         arr2 = []
+                        run = 0
                         for line2 in file2:
                             arrTemp = line2.strip().split()
-                            arr2.extend(arrTemp[1:-2])
+                            if "(bad)" in line2:
+                                run = 1
+                                arr2.extend(arrTemp[1:-1])
+                            else:
+                                arr2.extend(arrTemp[1:-2])
                         #print(''.join(arr2)) # degistirilecek opcode
 
                         with open(f"{fileName}.temp", "r") as file3:
@@ -98,7 +104,7 @@ for x,instruction in enumerate(instructions): # jmp kontrol ediliyor
                             begin = diff*2
                             opcode = ''.join(arr2)
                             #print(f"Mevcut instruction : {instruction}")
-                            if lines.count(''.join(arr2)) == 1:
+                            if (lines.count(''.join(arr2)) == 1) or (run == 1):
                                 print(f"{Fore.GREEN}[*]{Fore.RESET} Opcode patching process is being performed... Address : {Fore.GREEN}{address}{Fore.RESET}")
                                 lines = lines.replace(opcode, (writeOn + opcode[begin:]))
                             if lines.count(''.join(arr2)) > 1:
@@ -168,7 +174,11 @@ for x,instruction in enumerate(instructions): # call kontrol ediliyor
                         arr2 = []
                         for line2 in file2:
                             arrTemp = line2.strip().split()
-                            arr2.extend(arrTemp[1:-2])
+                            if "(bad)" in line2:
+                                run = 1
+                                arr2.extend(arrTemp[1:-1])
+                            else:
+                                arr2.extend(arrTemp[1:-2])
                         #print(''.join(arr2)) # degistirilecek opcode
 
                         with open(f"{fileName}.temp", "r") as file3:
