@@ -7,21 +7,57 @@ section .text
 _start:
 
     mov edi, myString  
-    mov ecx, 6         
-    db 0ebH,0ffH,0c0H,048H ; inc  eax  dec eax
-    mov al, 0x73         
-    db 0ebH,0ffH,0c0H,048H ; inc  eax  dec eax
-    stosb              
+    mov ecx, 6
+    db 0xeb
+    db 0xff
+    db 0xc0
+    db 0x48
+    db 0x90
+    db 0x90         
+    mov al, 0x73        
+    stosb 
+    db 0xeb
+    db 0xff
+    db 0xc0
+    db 0x48
+    db 0x90
+    db 0x90              
     mov al, 0x65         
     stosb
+    db 0xeb
+    db 0xff
+    db 0xc0
+    db 0x48
+    db 0x90
+    db 0x90 
     mov al, 0x63         
     stosb 
+    db 0xeb
+    db 0xff
+    db 0xc0
+    db 0x48
+    db 0x90
+    db 0x90 
     mov al, 0x72         
     stosb 
+    db 0xeb
+    db 0xff
+    db 0xc0
+    db 0x48
+    db 0x90
+    db 0x90 
     mov al, 0x65         
     stosb 
+    db 0xeb
+    db 0xff
+    db 0xc0
+    db 0x48
+    db 0x90
+    db 0x90 
     mov al, 0x74         
-    stosb            
+    stosb
+
+	            
 
     mov eax, 4           
     mov ebx, 1            
