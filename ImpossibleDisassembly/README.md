@@ -10,8 +10,11 @@ If you want to get an idea of how this technique works, you can review [this art
 \____|__  /___|  /__| |__| /_______  /__/____  >(____  /____  >____  >                                             
         \/     \/                  \/        \/      \/     \/     \/                                              
                                                                                                                    
-                            by aktas                                                                               
-            https://www.linkedin.com/in/alperaktasm/                                                               
+ ---------------------------------------------------------------------
+ | Twitter: https://twitter.com/zayotem                              |
+ | Github: https://github.com/ZAYOTEM                                |
+ | Authors:Alper AKTAŞ, Tolga YILMAZ, Ebubekir ERKAYA, Tuğba Nur CAN |
+ ---------------------------------------------------------------------                                                             
                                                                                                                    
 usage: AntiDisass.py [-h] [-s] -f FILE
 
