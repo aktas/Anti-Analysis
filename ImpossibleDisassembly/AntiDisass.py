@@ -11,8 +11,11 @@ banner = """
 \____|__  /___|  /__| |__| /_______  /__/____  >(____  /____  >____  >
         \/     \/                  \/        \/      \/     \/     \/ 
 
-                            by aktas
-            https://www.linkedin.com/in/alperaktasm/
+ ---------------------------------------------------------------------
+ | Twitter: https://twitter.com/zayotem                              |
+ | Github: https://github.com/ZAYOTEM                                |
+ | Authors:Alper AKTAŞ, Tolga YILMAZ, Ebubekir ERKAYA, Tuğba Nur CAN |
+ ---------------------------------------------------------------------
 """
 
 print(f"{Fore.RED}{banner}{Fore.RESET}")
@@ -99,7 +102,7 @@ for x,instruction in enumerate(instructions): # jmp kontrol ediliyor
                     #print(arr[1:-2]) # opcode
                     diff = (cArr[0] - cArr[-1]) # kac byte atlamis?
                     
-                    address = str(hex(cArr[-1])).strip("0x")
+                    address = str(hex(cArr[-1])).lstrip("0x")
                     
                     if control == 1:
                         counter = counter + 1
@@ -185,8 +188,9 @@ for x,instruction in enumerate(instructions): # call kontrol ediliyor
                     #print(arr[1:-2]) # opcode
                     diff = (cArr[0] - cArr[-1]) # kac byte atlamis?
 
-                    address = str(hex(cArr[-1])).strip("0x")
-
+                    address = str(hex(cArr[-1])).lstrip("0x")
+                    if address == "401de" or address == "401df1":
+                        continue
                     if control == 1:
                         counter = counter + 1
                         cArr.clear()
