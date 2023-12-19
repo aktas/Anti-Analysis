@@ -13,3 +13,8 @@ Günümüzde, kötü niyetli yazılım geliştiricileri yazdıkları kötü ama�
   - RaiseException
   - GetTickCount
   - QueryPerformanceCounter
+- Data Obfuscation
+  - Xor
+  - Base64 
+  - AES Encrypt/Decrypt
+  
