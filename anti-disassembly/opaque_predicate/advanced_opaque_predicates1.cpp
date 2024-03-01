@@ -3,6 +3,8 @@
 #include <wininet.h>
 using namespace std;
 
+#pragma optimize("", off)
+
 void maliciousFunc() { // malicious activity
     string name = "camon";
     int k = 5;
